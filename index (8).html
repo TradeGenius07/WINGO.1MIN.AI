@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeGenius07 Ai</title>
+    <style>
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container-wrapper {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .image-container {
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .period-number {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .details {
+          font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 1rem;
+            font-size: bold;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .details p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .details p span {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .prediction-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+        }
+
+        .prediction-container h2 {
+          font: italic small-caps bold 12px/30px Georgia, serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #444;
+            margin: 10px 0;
+        }
+
+        .cn-image img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .bs-circle {
+          font: italic small-caps bold 12px/30px Georgia, serif;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #444;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px auto;
+        }
+
+        .result-button {
+          font: italic small-caps bold 12px/30px Georgia, serif;
+            padding: 10px 20px;
+            background-color: #DAA520;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .result-button:hover {
+            background-color: #FFD700;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media screen and (max-width: 768px) {
+            .details p {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+        }
+
+        .crack-by {
+            font-family: "Lucida Console", "Courier New", monospace;
+            font-size: 1rem;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .telegram-button {
+            padding: 10px 20px;
+            background-color: #0088cc;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .telegram-button:hover {
+            background-color: #006699;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <div class="image-container">
+            <img src="https://bdgwinbet7.com/assets/png/wingoissue-ba51f474.png" alt="Image">
+            <div class="period-number" id="period-number">Loading...</div>
+        </div>
+        <div class="details">
+            <p id="abt-user">YOUR KEY ➢ <span id="username"></span></p>
+            <p id="abt-user">REGISTERED ➢ PERMANENT<span id="registered-on"></span></p>
+        </div>
+        <div class="prediction-container">
+            <h2>TradeGenius07 Ai Server</h2>
+            <div class="divider"></div>
+            <div class="cn-image">
+                <img src="" id="cn-img" alt="C/N Image">
+            </div>
+            <div class="divider"></div>
+            <div class="bs-circle" id="bs-circle">B/S ?</div>
+            <button class="result-button" id="result-button">Get Result</button>
+        </div>
+        <div class="crack-by">CRACK BY TradeGenius07</div>
+        <a href="https://t.me/TradeGenius07" class="telegram-button" target="_blank">Join Telegram</a>
+    </div>
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem('username'); // Replace with dynamic username if available
+        const uid = localStorage.getItem('deviceID'); // Replace with dynamic UID if available
+        const endpoint = `data.php?user_det=${username}&uid=${uid}`;
+        
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "done") {
+                    document.getElementById("username").innerText = username;
+                    document.getElementById("registered-on").innerText = new Date(parseInt(data.start_date)).toLocaleString();
+                    document.getElementById("expired-key-date").innerText = new Date(parseInt(data.end_date)).toLocaleString();
+                    document.getElementById('time-left').innerText = data.left;
+                    document.getElementById("server-status").innerText = "Server is connected";
+                } else {
+                    document.getElementById("server-status").innerText = data.msg;
+                    window.location.href = '';
+                }
+            })
+            .catch(error => {
+                document.getElementById("server-status").innerText = "Error connecting to server";
+                console.error('Error fetching data:', error);
+            });
+    });
+
+    document.getElementById('username').innerText = localStorage.getItem('username');
+    document.getElementById('game-name').innerText = localStorage.getItem('game-name');
+    document.getElementById('game-version').innerText = localStorage.getItem('game-version');
+    document.getElementById('game-play-mod').innerText = localStorage.getItem('game-play-mod');
+
+    function navigate(page) {
+        const content = document.getElementById('content');
+        let title, text;
+        //blocking page switch
+        switch(yaha_page_rahega_shirf) {
+            case 'bigMumbai':
+                title = 'Big Mumbai';
+                text = 'Welcome to Big Mumbai game. Start predicting colors!';
+                break;
+            case '91Club':
+                title = '91 Club';
+                text = 'Welcome to 91 Club game. Start predicting colors!';
+                break;
+            case 'tiranga':
+                title = 'Tiranga';
+                text = 'Welcome to Tiranga game. Start predicting colors!';
+                break;
+            case 'okWin':
+                title = 'OkWin';
+                text = 'Welcome to OkWin game. Start predicting colors!';
+                break;
+            case '82Lottery':
+                title = '82 Lottery';
+                text = 'Welcome to 82 Lottery game. Start predicting colors!';
+                break;
+            case 'colorGame':
+                title = 'Color Game';
+                text = 'Welcome to Color Game. Start predicting colors!';
+                break;
+            default:
+                title = 'Color Prediction Games';
+                text = 'Select a game from the menu to start playing!';
+        }
+
+        content.innerHTML = `<h2>${title}</h2><p>${text}</p><button id="getPredictionBtn" onclick="getPrediction()">Get Prediction</button><div id="gamePeriod" style="display: none;"><h3>Game Period: <span id="periodValue"></span></h3><h3>Game Result: <span id="resultValue"></span></h3></div>`;
+    }
+
+    function getPrediction() {
+        const username = localStorage.getItem('username'); // Replace with dynamic username if available
+        const uid = localStorage.getItem('deviceID'); // Replace with dynamic UID if available
+        const endpoint = `data.php?user_det=${username}&uid=${uid}`;
+        
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "done") {
+                    document.getElementById("username").innerText = username;
+                    document.getElementById("registered-on").innerText = new Date(parseInt(data.start_date)).toLocaleString();
+                    document.getElementById("expired-key-date").innerText = new Date(parseInt(data.end_date)).toLocaleString();
+                    document.getElementById('time-left').innerText = data.left;
+                    document.getElementById('gamePeriod').style.display = 'block';
+                    document.getElementById('periodValue').innerText = data.period;
+                    document.getElementById('resultValue').innerText = data.result;
+                    document.getElementById("server-status").innerText = "Server is connected";
+                } else {
+                    document.getElementById("server-status").innerText = data.msg;
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => {
+                document.getElementById("server-status").innerText = "Error connecting to server";
+                console.error('Error fetching data:', error);
+            });
+    }
+    </script>
+
+    <script>
+        const imageUrls = {
+            n0: 'https://goagameb.com/assets/png/n0-30bd92d1.png',
+            n1: 'https://goagameb.com/assets/png/n1-dfccbff5.png',
+            n2: 'https://goagameb.com/assets/png/n2-c2913607.png',
+            n3: 'https://goagameb.com/assets/png/n3-f92c313f.png',
+            n4: 'https://goagameb.com/assets/png/n4-cb84933b.png',
+            n5: 'https://goagameb.com/assets/png/n5-49d0e9c5.png',
+            n6: 'https://goagameb.com/assets/png/n6-a56e0b9a.png',
+            n7: 'https://goagameb.com/assets/png/n7-5961a17f.png',
+            n8: 'https://goagameb.com/assets/png/n8-d4d951a4.png',
+            n9: 'https://goagameb.com/assets/png/n9-a20f6f42.png'
+        };
+
+        let currentPeriod = null;
+        let predictionMade = false;
+
+        async function fetchPeriodNumber() {
+            const apiUrl = 'https://api.bdg88zf.com/api/webapi/GetGameIssue';
+            const requestData = {
+                "typeId": 1,
+                "language": 0,
+                "random": "40079dcba93a48769c6ee9d4d4fae23f",
+                "signature": "D12108C4F57C549D82B23A91E0FA20AE",
+                "timestamp": 1727792520
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.code === 0) {
+                        const periodNumber = data.data.issueNumber;
+                        if (periodNumber !== currentPeriod) {
+                            currentPeriod = periodNumber;
+                            predictionMade = false;
+                            resetPrediction();
+                        }
+                        document.getElementById('period-number').textContent = periodNumber;
+                    }
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function resetPrediction() {
+            const cnImg = document.getElementById('cn-img');
+            const bsCircle = document.getElementById('bs-circle');
+
+            cnImg.src = '';
+            bsCircle.textContent = 'B/S ?';
+            bsCircle.style.backgroundColor = 'transparent';
+        }
+
+        function displayPrediction() {
+            if (predictionMade) return; 
+            predictionMade = true;
+
+            document.getElementById('loading-overlay').style.display = 'flex';
+
+            setTimeout(() => {
+                const randomNumber = Math.floor(Math.random() * 10); 
+                const isBig = randomNumber >= 100; 
+                const cnImg = document.getElementById('cn-img');
+                const bsCircle = document.getElementById('bs-circle');
+
+                cnImg.src = imageUrls[`n${randomNumber}`];
+                bsCircle.textContent = isBig ? 'B' : 'S';
+
+                if (randomNumber === 0) {
+                    cnImg.style.borderColor = 'violetred';
+                    bsCircle.style.backgroundColor = 'violetred';  
+                } else if (randomNumber === 1 || randomNumber === 3 || randomNumber === 7 || randomNumber === 9) {
+                    cnImg.style.borderColor = 'green';
+                    bsCircle.style.backgroundColor = 'green';  
+                } else if (randomNumber === 2 || randomNumber === 4 || randomNumber === 6 || randomNumber === 8) {
+                    cnImg.style.borderColor = 'red';
+                    bsCircle.style.backgroundColor = 'red';  
+                } else if (randomNumber === 5) {
+                    cnImg.style.borderColor = 'violetgreen';
+                    bsCircle.style.backgroundColor = 'violetgreen';  
+                }
+
+                cnImg.style.transform = 'scale(1.2)';
+                bsCircle.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    cnImg.style.transform = 'scale(1)';
+                    bsCircle.style.transform = 'scale(1)';
+                }, 300);
+
+                document.getElementById('loading-overlay').style.display = 'none';
+            }, 2000); 
+        }
+
+        document.getElementById('result-button').addEventListener('click', displayPrediction);
+
+        fetchPeriodNumber();
+        setInterval(fetchPeriodNumber, 5000);
+    </script>
+</body>
+</html>
